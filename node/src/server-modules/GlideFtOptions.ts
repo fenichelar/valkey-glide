@@ -2,8 +2,8 @@
  * Copyright Valkey GLIDE Project Contributors - SPDX Identifier: Apache-2.0
  */
 
-import { SortOrder } from "src/Commands";
 import { GlideRecord, GlideString } from "../BaseClient";
+import { SortOrder } from "../Commands";
 import { GlideFt } from "./GlideFt"; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 interface BaseField {
@@ -144,19 +144,19 @@ export type FtAggregateOptions = {
      */
     params?: GlideRecord<GlideString>;
 } & (
-    | {
-          /** List of fields to load from the index. */
-          loadFields?: GlideString[];
-          /** `loadAll` and `loadFields` are mutually exclusive. */
-          loadAll?: never;
-      }
-    | {
-          /** Option to load all fields declared in the index */
-          loadAll?: boolean;
-          /** `loadAll` and `loadFields` are mutually exclusive. */
-          loadFields?: never;
-      }
-);
+        | {
+            /** List of fields to load from the index. */
+            loadFields?: GlideString[];
+            /** `loadAll` and `loadFields` are mutually exclusive. */
+            loadAll?: never;
+        }
+        | {
+            /** Option to load all fields declared in the index */
+            loadAll?: boolean;
+            /** `loadAll` and `loadFields` are mutually exclusive. */
+            loadFields?: never;
+        }
+    );
 
 /** A clause for limiting the number of retained records. */
 export interface FtAggregateLimit {
@@ -241,7 +241,7 @@ export type FtSearchOptions = {
      * @param fieldIdentifier field name to return.
      * @param alias optional alias for the field name to return.
      */
-    returnFields?: { fieldIdentifier: GlideString; alias?: GlideString }[];
+    returnFields?: { fieldIdentifier: GlideString; alias?: GlideString; }[];
 
     /**
      * Query parameters, which could be referenced in the query by `$` sign, followed by
@@ -249,24 +249,24 @@ export type FtSearchOptions = {
      */
     params?: GlideRecord<GlideString>;
 } & (
-    | {
-          /**
-           * Configure query pagination. By default only first 10 documents are returned.
-           *
-           * @param offset Zero-based offset.
-           * @param count Number of elements to return.
-           */
-          limit?: { offset: number; count: number };
-          /** `limit` and `count` are mutually exclusive. */
-          count?: never;
-      }
-    | {
-          /**
-           * Once set, the query will return only the number of documents in the result set without actually
-           * returning them.
-           */
-          count?: boolean;
-          /** `limit` and `count` are mutually exclusive. */
-          limit?: never;
-      }
-);
+        | {
+            /**
+             * Configure query pagination. By default only first 10 documents are returned.
+             *
+             * @param offset Zero-based offset.
+             * @param count Number of elements to return.
+             */
+            limit?: { offset: number; count: number; };
+            /** `limit` and `count` are mutually exclusive. */
+            count?: never;
+        }
+        | {
+            /**
+             * Once set, the query will return only the number of documents in the result set without actually
+             * returning them.
+             */
+            count?: boolean;
+            /** `limit` and `count` are mutually exclusive. */
+            limit?: never;
+        }
+    );

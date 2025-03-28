@@ -2,11 +2,11 @@
  * Copyright Valkey GLIDE Project Contributors - SPDX Identifier: Apache-2.0
  */
 
-import { ClusterTransaction, Transaction } from "src/Transaction";
 import { BaseClient, DecoderOption, GlideString } from "../BaseClient";
 import { ConditionalChange } from "../Commands";
 import { GlideClient } from "../GlideClient";
 import { GlideClusterClient, RouteOption } from "../GlideClusterClient";
+import { ClusterTransaction, Transaction } from "../Transaction";
 
 export type ReturnTypeJson<T> = T | (T | null)[];
 export type UniversalReturnTypeJson<T> = T | T[];
@@ -124,7 +124,7 @@ export class GlideJson {
         key: GlideString,
         path: GlideString,
         value: GlideString,
-        options?: { conditionalChange: ConditionalChange } & DecoderOption,
+        options?: { conditionalChange: ConditionalChange; } & DecoderOption,
     ): Promise<"OK" | null> {
         const args: GlideString[] = ["JSON.SET", key, path, value];
 
@@ -375,7 +375,7 @@ export class GlideJson {
     static async arrlen(
         client: BaseClient,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Promise<ReturnTypeJson<number>> {
         const args = ["JSON.ARRLEN", key];
         if (options?.path) args.push(options?.path);
@@ -479,7 +479,7 @@ export class GlideJson {
         key: GlideString,
         path: GlideString,
         scalar: GlideString | number | boolean | null,
-        options?: { start: number; end?: number },
+        options?: { start: number; end?: number; },
     ): Promise<ReturnTypeJson<number>> {
         const args = ["JSON.ARRINDEX", key, path];
 
@@ -540,7 +540,7 @@ export class GlideJson {
     static async toggle(
         client: BaseClient,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Promise<ReturnTypeJson<boolean>> {
         const args = ["JSON.TOGGLE", key];
 
@@ -575,7 +575,7 @@ export class GlideJson {
     static async del(
         client: BaseClient,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Promise<number> {
         const args = ["JSON.DEL", key];
 
@@ -611,7 +611,7 @@ export class GlideJson {
     static async forget(
         client: BaseClient,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Promise<number> {
         const args = ["JSON.FORGET", key];
 
@@ -655,7 +655,7 @@ export class GlideJson {
     static async type(
         client: BaseClient,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Promise<ReturnTypeJson<GlideString>> {
         const args = ["JSON.TYPE", key];
 
@@ -708,7 +708,7 @@ export class GlideJson {
     static async clear(
         client: BaseClient,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Promise<ReturnTypeJson<number>> {
         const args = ["JSON.CLEAR", key];
 
@@ -757,7 +757,7 @@ export class GlideJson {
     static async resp(
         client: BaseClient,
         key: GlideString,
-        options?: { path: GlideString } & DecoderOption,
+        options?: { path: GlideString; } & DecoderOption,
     ): Promise<
         UniversalReturnTypeJson<
             (number | GlideString) | (number | GlideString | null) | null
@@ -811,7 +811,7 @@ export class GlideJson {
     static async strlen(
         client: BaseClient,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Promise<ReturnTypeJson<number>> {
         const args = ["JSON.STRLEN", key];
 
@@ -860,7 +860,7 @@ export class GlideJson {
         client: BaseClient,
         key: GlideString,
         value: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Promise<ReturnTypeJson<number>> {
         const args = ["JSON.STRAPPEND", key];
 
@@ -943,7 +943,7 @@ export class GlideJson {
     static async debugMemory(
         client: BaseClient,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Promise<ReturnTypeJson<number>> {
         const args = ["JSON.DEBUG", "MEMORY", key];
 
@@ -982,7 +982,7 @@ export class GlideJson {
     static async debugFields(
         client: BaseClient,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Promise<ReturnTypeJson<number>> {
         const args = ["JSON.DEBUG", "FIELDS", key];
 
@@ -1104,7 +1104,7 @@ export class GlideJson {
     static async objlen(
         client: BaseClient,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Promise<ReturnTypeJson<number>> {
         const args = ["JSON.OBJLEN", key];
 
@@ -1147,7 +1147,7 @@ export class GlideJson {
     static async objkeys(
         client: BaseClient,
         key: GlideString,
-        options?: { path: GlideString } & DecoderOption,
+        options?: { path: GlideString; } & DecoderOption,
     ): Promise<ReturnTypeJson<GlideString[]>> {
         const args = ["JSON.OBJKEYS", key];
 
@@ -1195,7 +1195,7 @@ export class JsonBatch {
         key: GlideString,
         path: GlideString,
         value: GlideString,
-        options?: { conditionalChange: ConditionalChange },
+        options?: { conditionalChange: ConditionalChange; },
     ): Transaction | ClusterTransaction {
         const args: GlideString[] = ["JSON.SET", key, path, value];
 
@@ -1360,7 +1360,7 @@ export class JsonBatch {
     static arrlen(
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.ARRLEN", key];
         if (options?.path) args.push(options?.path);
@@ -1438,7 +1438,7 @@ export class JsonBatch {
         key: GlideString,
         path: GlideString,
         scalar: GlideString | number | boolean | null,
-        options?: { start: number; end?: number },
+        options?: { start: number; end?: number; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.ARRINDEX", key, path];
 
@@ -1474,7 +1474,7 @@ export class JsonBatch {
     static toggle(
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.TOGGLE", key];
 
@@ -1498,7 +1498,7 @@ export class JsonBatch {
     static del(
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.DEL", key];
 
@@ -1523,7 +1523,7 @@ export class JsonBatch {
     static forget(
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.FORGET", key];
 
@@ -1556,7 +1556,7 @@ export class JsonBatch {
     static type(
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.TYPE", key];
 
@@ -1584,7 +1584,7 @@ export class JsonBatch {
     static clear(
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.CLEAR", key];
 
@@ -1623,7 +1623,7 @@ export class JsonBatch {
     static resp(
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.RESP", key];
 
@@ -1657,7 +1657,7 @@ export class JsonBatch {
     static strlen(
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.STRLEN", key];
 
@@ -1692,7 +1692,7 @@ export class JsonBatch {
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
         value: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.STRAPPEND", key];
 
@@ -1758,7 +1758,7 @@ export class JsonBatch {
     static debugMemory(
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.DEBUG", "MEMORY", key];
 
@@ -1790,7 +1790,7 @@ export class JsonBatch {
     static debugFields(
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.DEBUG", "FIELDS", key];
 
@@ -1883,7 +1883,7 @@ export class JsonBatch {
     static objlen(
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.OBJLEN", key];
 
@@ -1917,7 +1917,7 @@ export class JsonBatch {
     static objkeys(
         transaction: Transaction | ClusterTransaction,
         key: GlideString,
-        options?: { path: GlideString },
+        options?: { path: GlideString; },
     ): Transaction | ClusterTransaction {
         const args = ["JSON.OBJKEYS", key];
 
